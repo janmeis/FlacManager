@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlacManager.ConsoleApp", "FlacManager.ConsoleApp\FlacManager.ConsoleApp.csproj", "{6526E5DB-5465-40A1-9421-4580220796E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlacManager.ConsoleApp", "FlacManager.ConsoleApp\FlacManager.ConsoleApp.csproj", "{6526E5DB-5465-40A1-9421-4580220796E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlacManager.Service", "FlacManager.Service\FlacManager.Service.csproj", "{D1EDCACC-237C-40F9-B852-021A41BBF32F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlacManager.Db", "FlacManager.Db\FlacManager.Db.csproj", "{CE9B8E66-EFB1-4611-88A9-505942B129E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlacManager.Service", "FlacManager.Service\FlacManager.Service.csproj", "{D1EDCACC-237C-40F9-B852-021A41BBF32F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44DCEDCC-7CC2-4C54-824B-AA1DA94FFFF6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlacManager.Db", "FlacManager.Db\FlacManager.Db.csproj", "{353E6239-132A-4606-8092-A8E7C9FC065F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlacManager.Models", "FlacManager.Models\FlacManager.Models.csproj", "{02138331-1B61-473B-AF5F-220F48AD86A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +31,14 @@ Global
 		{D1EDCACC-237C-40F9-B852-021A41BBF32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1EDCACC-237C-40F9-B852-021A41BBF32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1EDCACC-237C-40F9-B852-021A41BBF32F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE9B8E66-EFB1-4611-88A9-505942B129E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE9B8E66-EFB1-4611-88A9-505942B129E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE9B8E66-EFB1-4611-88A9-505942B129E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE9B8E66-EFB1-4611-88A9-505942B129E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353E6239-132A-4606-8092-A8E7C9FC065F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353E6239-132A-4606-8092-A8E7C9FC065F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353E6239-132A-4606-8092-A8E7C9FC065F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353E6239-132A-4606-8092-A8E7C9FC065F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02138331-1B61-473B-AF5F-220F48AD86A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02138331-1B61-473B-AF5F-220F48AD86A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02138331-1B61-473B-AF5F-220F48AD86A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02138331-1B61-473B-AF5F-220F48AD86A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

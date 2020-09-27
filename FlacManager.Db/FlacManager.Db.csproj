@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlacManager.Models\FlacManager.Models.csproj" />
+  </ItemGroup>
+
 </Project>
