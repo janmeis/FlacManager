@@ -1,4 +1,4 @@
-﻿namespace FlacManager.Models
+﻿namespace FlacManager.Models.Models
 {
 	public class Artist
 	{

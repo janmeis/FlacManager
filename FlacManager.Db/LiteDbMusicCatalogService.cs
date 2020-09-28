@@ -1,12 +1,12 @@
-﻿using FlacManager.Models;
-using LiteDB;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.Linq;
+using FlacManager.Models.Interfaces;
+using FlacManager.Models.Models;
+using LiteDB;
 
-namespace FlacManager.Db.LiteDb
+namespace FlacManager.Db
 {
-	public class LiteDbMusicCatalogService : ILiteDbMusicCatalogService
+	public class LiteDbMusicCatalogService : IMusicCatalogService
 	{
 		private readonly LiteDatabase _liteDb;
 
@@ -21,10 +21,9 @@ namespace FlacManager.Db.LiteDb
 				.DeleteMany(x => x.Id == id);
 		}
 
-		public int DeleteCollection()
+		public bool DeleteAll()
 		{
-			var col = _liteDb.GetCollection<Artist>("artists");
-			return col.DeleteAll();
+			return _liteDb.DropCollection("artists");
 		}
 
 		public IEnumerable<Artist> FindAll()

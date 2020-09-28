@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FlacManager.Models.Models;
 
 namespace FlacManager.Service
 {
 	public interface IHandleArtists
 	{
-		int DeleteCollection();
+		bool DeleteAll();
 		void StoreArtists();
 		IEnumerable<Artist> EnumerateArtists();
 	}

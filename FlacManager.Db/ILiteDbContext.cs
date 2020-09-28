@@ -1,6 +1,6 @@
 ﻿using LiteDB;
 
-namespace FlacManager.Db.LiteDb
+namespace FlacManager.Db
 {
     public interface ILiteDbContext
     {

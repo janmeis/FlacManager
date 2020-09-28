@@ -1,4 +1,4 @@
-﻿namespace FlacManager.Models
+﻿namespace FlacManager.Models.Interfaces
 {
 	public interface IDocumentPath
 	{

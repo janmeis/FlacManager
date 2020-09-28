@@ -1,9 +1,11 @@
-﻿using FlacManager.Db.LiteDb;
-using FlacManager.Models;
+﻿using FlacManager.Models;
 using FlacManager.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using FlacManager.Db;
+using FlacManager.Models.Interfaces;
+using FlacManager.Models.Models;
 
 namespace FlacManager.ConsoleApp
 {
@@ -29,7 +31,7 @@ namespace FlacManager.ConsoleApp
             services.Configure<MusicLibraryOptions>(Configuration.GetSection("MusicLibraryOptions"));
 
             services.AddSingleton<ILiteDbContext, LiteDbContext>();
-            services.AddTransient<ILiteDbMusicCatalogService, LiteDbMusicCatalogService>();
+            services.AddTransient<IMusicCatalogService, LiteDbMusicCatalogService>();
 
             services.AddTransient<IHandleArtists, HandleArtists>();
         }

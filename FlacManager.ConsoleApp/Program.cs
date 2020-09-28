@@ -21,6 +21,7 @@ namespace FlacManager.ConsoleApp
 			handleArtists.StoreArtists();
 			var artists = handleArtists.EnumerateArtists().ToList();
 			artists.ForEach(a => Console.WriteLine(a.Name));
+			//handleArtists.DeleteAll();
 
 			Console.WriteLine("---");
 			Console.ReadLine();

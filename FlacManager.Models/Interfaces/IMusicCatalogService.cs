@@ -1,12 +1,12 @@
-﻿using FlacManager.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FlacManager.Models.Models;
 
-namespace FlacManager.Db.LiteDb
+namespace FlacManager.Models.Interfaces
 {
-	public interface ILiteDbMusicCatalogService
+	public interface IMusicCatalogService
 	{
         int Delete(int id);
-        int DeleteCollection();
+        bool DeleteAll();
         IEnumerable<Artist> FindAll();
         Artist FindOne(int id);
         int Insert(Artist artist);

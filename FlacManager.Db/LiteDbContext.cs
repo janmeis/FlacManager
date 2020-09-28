@@ -1,9 +1,10 @@
-﻿using FlacManager.Models;
+﻿using System.IO;
+using FlacManager.Models.Interfaces;
+using FlacManager.Models.Models;
 using LiteDB;
 using Microsoft.Extensions.Options;
-using System.IO;
 
-namespace FlacManager.Db.LiteDb
+namespace FlacManager.Db
 {
 	public class LiteDbContext : ILiteDbContext
     {

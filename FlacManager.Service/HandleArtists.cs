@@ -1,26 +1,27 @@
-﻿using FlacManager.Db.LiteDb;
-using FlacManager.Models;
+﻿using FlacManager.Models;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FlacManager.Models.Interfaces;
+using FlacManager.Models.Models;
 
 namespace FlacManager.Service
 {
 	public class HandleArtists: IHandleArtists
 	{
-		private readonly ILiteDbMusicCatalogService _musicCalatalogDbService;
+		private readonly IMusicCatalogService _musicCalatalogDbService;
 		private readonly string _musicFilesLocation;
 
-		public HandleArtists(ILiteDbMusicCatalogService musicCalatalogDbService, IOptions<MusicLibraryOptions> options)
+		public HandleArtists(IMusicCatalogService musicCalatalogDbService, IOptions<MusicLibraryOptions> options)
 		{
 			_musicCalatalogDbService = musicCalatalogDbService;
 			_musicFilesLocation = options.Value.MusicFilesLocation;
 		}
 
-		public int DeleteCollection()
+		public bool DeleteAll()
 		{
-			return _musicCalatalogDbService.DeleteCollection();
+			return _musicCalatalogDbService.DeleteAll();
 		}
 
 		public void StoreArtists()
