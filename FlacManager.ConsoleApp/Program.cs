@@ -20,7 +20,15 @@ namespace FlacManager.ConsoleApp
 			var handleArtists = serviceProvider.GetService<IHandleArtists>();
 			handleArtists.StoreArtists();
 			var artists = handleArtists.EnumerateArtists().ToList();
-			artists.ForEach(a => Console.WriteLine(a.Name));
+			artists.ForEach(artist =>
+			{
+				Console.WriteLine($"artist:{artist.Name}");
+				artist.Albums.ToList().ForEach(album =>
+				{
+					Console.WriteLine($"\tyear:{album.Year} name:{album.Name}");
+					album.Tracks.ToList().ForEach(track => Console.WriteLine($"\t\tnumber:{track.Number} name:{track.Name} format:{track.Format}"));
+				});
+			});
 			//handleArtists.DeleteAll();
 
 			Console.WriteLine("---");

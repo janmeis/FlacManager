@@ -1,10 +1,13 @@
-﻿namespace FlacManager.Models.Models
+﻿using System.Collections.Generic;
+
+namespace FlacManager.Models.Models
 {
-	public class Artist
+	public class Artist: MusicBase
 	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public long Size { get; set; }
-		public int Albums { get; set; }
+		public Artist()
+		{
+			Albums = new List<Album>();
+		}
+		public IEnumerable<Album> Albums { get; set; }
 	}
 }
