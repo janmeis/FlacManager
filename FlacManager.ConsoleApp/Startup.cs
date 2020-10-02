@@ -1,15 +1,15 @@
-﻿using FlacManager.Models;
+﻿using FlacManager.Db;
+using FlacManager.Models.Interfaces;
+using FlacManager.Models.Models;
 using FlacManager.Service;
+using FlacManager.Tagging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using FlacManager.Db;
-using FlacManager.Models.Interfaces;
-using FlacManager.Models.Models;
 
 namespace FlacManager.ConsoleApp
 {
-    public class Startup
+	public class Startup
     {
         public IConfigurationRoot Configuration { get; }
 
@@ -32,6 +32,7 @@ namespace FlacManager.ConsoleApp
 
             services.AddSingleton<ILiteDbContext, LiteDbContext>();
             services.AddTransient<IMusicCatalogService, LiteDbMusicCatalogService>();
+            services.AddTransient<IAudioFileService, AudioFileService >();
 
             services.AddTransient<IHandleArtists, HandleArtists>();
         }

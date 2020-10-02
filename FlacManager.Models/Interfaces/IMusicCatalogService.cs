@@ -11,5 +11,7 @@ namespace FlacManager.Models.Interfaces
         Artist FindOne(int id);
         int Insert(Artist artist);
         bool Update(Artist artist);
-    }
+        void CreateStatistics();
+        void SetIndexes();
+	}
 }

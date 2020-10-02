@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FlacManager.Db\FlacManager.Db.csproj" />
     <ProjectReference Include="..\FlacManager.Service\FlacManager.Service.csproj" />
+    <ProjectReference Include="..\FlacManager.Tagging\FlacManager.Tagging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

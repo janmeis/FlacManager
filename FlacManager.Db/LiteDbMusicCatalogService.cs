@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FlacManager.Models.Interfaces;
 using FlacManager.Models.Models;
@@ -23,7 +24,8 @@ namespace FlacManager.Db
 
 		public bool DeleteAll()
 		{
-			return _liteDb.DropCollection("artists");
+			return _liteDb.DropCollection("artists")
+				&& _liteDb.DropCollection("artists_created");
 		}
 
 		public IEnumerable<Artist> FindAll()
@@ -49,6 +51,19 @@ namespace FlacManager.Db
 		{
 			return _liteDb.GetCollection<Artist>("artists")
 				.Update(artist);
+		}
+
+		public void CreateStatistics()
+		{
+			var statistics = new Statistics { Created = DateTime.Now };
+			_liteDb.GetCollection<Statistics>("artists_created")
+				.Insert(statistics);
+		}
+
+		public void SetIndexes()
+		{
+			var col = _liteDb.GetCollection<Artist>("artists");
+			col.EnsureIndex(x => x.Name);
 		}
 	}
 }

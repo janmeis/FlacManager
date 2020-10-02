@@ -9,7 +9,7 @@ namespace FlacManager.Service
 	public interface IHandleArtists
 	{
 		bool DeleteAll();
-		void StoreArtists();
+		void StoreArtists(DateTime? from, DateTime? to);
 		IEnumerable<Artist> EnumerateArtists();
 	}
 }

@@ -8,4 +8,8 @@
     <PackageReference Include="z440.atl.core" Version="3.11.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FlacManager.Models\FlacManager.Models.csproj" />
+  </ItemGroup>
+
 </Project>

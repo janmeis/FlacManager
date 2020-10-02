@@ -6,9 +6,10 @@ namespace FlacManager.Models.Models
 	{
 		public Album()
 		{
-			Tracks = new List<Track>();
+			Tracks = new List<AudioTrack>();
+			Files = new List<File>();
 		}
-		public string Year { get; set; }
-		public IEnumerable<Track> Tracks { get; set; }
+		public IEnumerable<AudioTrack> Tracks { get; set; }
+		public IEnumerable<File> Files { get; set; }
 	}
 }
