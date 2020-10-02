@@ -18,7 +18,7 @@ namespace FlacManager.Models.Models
 			Genre = track.Genre;
 			Album = track.Album;
 			AlbumArtist = track.AlbumArtist;
-			Year = track.Year;
+			Year = $"{track.Year}";
 			TrackNumber = track.TrackNumber;
 			TrackTotal = track.TrackTotal;
 			DiscNumber = track.DiscNumber;
@@ -35,7 +35,7 @@ namespace FlacManager.Models.Models
         public string Genre { get; set; }
         public string Album { get; set; }
         public string AlbumArtist { get; set; }
-		public int Year { get; set; }
+		public string Year { get; set; }
         public int TrackNumber { get; set; }
         public int TrackTotal { get; set; }
         public int DiscNumber { get; set; }

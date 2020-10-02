@@ -1,12 +1,10 @@
-﻿using System;
+﻿using FlacManager.Models.Interfaces;
+using FlacManager.Models.Models;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using FlacManager.Models.Interfaces;
-using FlacManager.Models.Models;
-using File = FlacManager.Models.Models.File;
 
 namespace FlacManager.Service
 {
@@ -85,12 +83,12 @@ namespace FlacManager.Service
 				});
 		}
 
-		private static IEnumerable<File> GetFiles(DirectoryInfo album)
+		private static IEnumerable<Models.Models.File> GetFiles(DirectoryInfo album)
 		{
 			var index = 1;
 			return album.EnumerateFileSystemInfos()
 				.OrderBy(file => file.Name)
-				.Select(file => new File
+				.Select(file => new Models.Models.File
 				{
 					Id = index++,
 					Name = file.Name,

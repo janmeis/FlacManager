@@ -26,9 +26,9 @@ namespace FlacManager.Tagging
 						.ToDictionary(c => c.Substring(0, c.IndexOf(' ')), c => c.Substring(c.IndexOf(' ') + 1).Replace("\"", ""));
 					var cueTracks = cueContent.Tracks.Select(track => new AudioTrack(track)
 					{
-						Genre = comments["GENRE"],
-						Year = int.Parse(comments["DATE"]),
-						Comment = comments["COMMENT"]
+						Genre = comments.ContainsKey("GENRE") ? comments["GENRE"] : string.Empty,
+						Year = comments.ContainsKey("DATE") ? comments["DATE"] : string.Empty,
+						Comment = comments.ContainsKey("COMMENT") ? comments["COMMENT"] : string.Empty
 					});
 
 					audioTracks.AddRange(cueTracks);
