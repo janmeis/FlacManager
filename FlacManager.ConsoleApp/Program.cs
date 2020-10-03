@@ -17,7 +17,8 @@ namespace FlacManager.ConsoleApp
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
 
 			// Get Service and call method
-			var handleArtists = serviceProvider.GetService<IHandleArtists>();
+			// ReSharper disable once InconsistentNaming
+			var _handleArtists = serviceProvider.GetService<IHandleArtists>();
 
 			DateTime? from = null;
 			DateTime? to = null;
@@ -26,10 +27,10 @@ namespace FlacManager.ConsoleApp
 
 			Console.WriteLine("---");
 
-			handleArtists.DeleteAll();
-			handleArtists.StoreArtists(from, to);
+			_handleArtists.DeleteAll();
+			_handleArtists.StoreArtists(from, to);
 
-			//var tracks = handleArtists.EnumerateArtists()
+			//var tracks = _handleArtists.EnumerateArtists()
 			//	.SelectMany(a => a.Albums)
 			//	.SelectMany(t => t.Tracks).ToList();
 			//tracks.ForEach(t =>

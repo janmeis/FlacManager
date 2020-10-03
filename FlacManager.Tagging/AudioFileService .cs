@@ -2,6 +2,8 @@
 using ATL.CatalogDataReaders;
 using FlacManager.Models.Interfaces;
 using FlacManager.Models.Models;
+using Microsoft.Extensions.Logging;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,9 +14,15 @@ namespace FlacManager.Tagging
 {
 	public class AudioFileService : IAudioFileService
 	{
+		private readonly ILogger<AudioFileService> _logger;
 		private static readonly Regex _extensionsRegex = new Regex(@"^(\.flac)|(\.mp3)|(\.m4a)|(\.ape)$", RegexOptions.IgnoreCase);
 		// ReSharper disable once IdentifierTypo
 		private static readonly Regex _losslessFileRegex = new Regex(@"FILE\s+""(.+)""\s+WAVE", RegexOptions.Multiline);
+
+		public AudioFileService(ILogger<AudioFileService> logger)
+		{
+			_logger = logger;
+		}
 
 		public IEnumerable<AudioTrack> GetTracks(DirectoryInfo album)
 		{
@@ -52,13 +60,16 @@ namespace FlacManager.Tagging
 					var cueFileSplit = _losslessFileRegex.Split(cueFileContent);
 					// ReSharper disable once IdentifierTypo
 					var losslessFile = Path.Combine(album.FullName, cueFileSplit.Length > 1 ? cueFileSplit[1] : "fileNotFound");
+					_logger.LogInformation(losslessFile);
+
 					if (!File.Exists(losslessFile))
 						throw new FileNotFoundException(losslessFile);
 
 					var cueContent = CatalogDataReaderFactory.GetInstance().GetCatalogDataReader(cueFile);
 					var comments = cueContent.Comments.Split('˵', StringSplitOptions.RemoveEmptyEntries)
-						.ToDictionary(c => c.Substring(0, c.IndexOf(' ')),
-							c => c.Substring(c.IndexOf(' ') + 1).Replace("\"", ""));
+						.Select(c => new { key = c.Substring(0, c.IndexOf(' ')), value = c.Substring(c.IndexOf(' ') + 1).Replace("\"", "") })
+						.DistinctBy(c => c.key)
+						.ToDictionary(c => c.key, c => c.value);
 					var cueTracks = cueContent.Tracks.Select(track => new AudioTrack(track, new FileInfo(losslessFile))
 					{
 						Id = index++,
@@ -73,14 +84,11 @@ namespace FlacManager.Tagging
 				}
 				catch (FileNotFoundException notFoundException)
 				{
-					Console.WriteLine($"File not found: {notFoundException.Message}");
-					Console.WriteLine("******");
+					_logger.LogError($"File not found: {notFoundException.Message}");
 				}
 				catch (Exception exception)
 				{
-					Console.WriteLine(cueFile);
-					Console.WriteLine("******");
-					Console.WriteLine(exception);
+					_logger.LogError($"Cue file:{cueFile}, {exception.Message}");
 				}
 			}
 

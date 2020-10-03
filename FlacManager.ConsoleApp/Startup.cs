@@ -5,6 +5,7 @@ using FlacManager.Service;
 using FlacManager.Tagging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace FlacManager.ConsoleApp
@@ -24,6 +25,13 @@ namespace FlacManager.ConsoleApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+	        services.AddLogging(logging =>
+	        {
+		        var loggingSection = Configuration.GetSection("Logging");
+		        logging.AddConfiguration(loggingSection);
+		        logging.AddFile(loggingSection);
+            });
+
             var documentPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\Documents";
             services.AddSingleton<IDocumentPath, DocumentPath>(s => new DocumentPath { Path = documentPath });
 
