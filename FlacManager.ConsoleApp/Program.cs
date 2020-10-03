@@ -16,6 +16,9 @@ namespace FlacManager.ConsoleApp
 			startup.ConfigureServices(services);
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
 
+			// Get Service and call method
+			var handleArtists = serviceProvider.GetService<IHandleArtists>();
+
 			DateTime? from = null;
 			DateTime? to = null;
 			if (args.Length > 0) from = DateTime.Parse(args[0]);
@@ -23,20 +26,16 @@ namespace FlacManager.ConsoleApp
 
 			Console.WriteLine("---");
 
-			// Get Service and call method
-			var handleArtists = serviceProvider.GetService<IHandleArtists>();
 			handleArtists.DeleteAll();
 			handleArtists.StoreArtists(from, to);
-			var artists = handleArtists.EnumerateArtists().ToList();
-			artists.ForEach(artist =>
-			{
-				Console.WriteLine($"artist:{artist.Name}, size:{artist.Length / 1024:N0}, created:{artist.CreationTime:d}");
-				artist.Albums.ToList().ForEach(album =>
-				{
-					Console.WriteLine($"\tname:{album.Name}, size:{album.Length / 1024:N0}, created:{album.CreationTime:d}");
-					album.Files.ToList().ForEach(file => Console.WriteLine($"\t\tname:{file.Name}, size:{file.Length / 1024:N0}, created:{file.CreationTime:d}"));
-				});
-			});
+
+			//var tracks = handleArtists.EnumerateArtists()
+			//	.SelectMany(a => a.Albums)
+			//	.SelectMany(t => t.Tracks).ToList();
+			//tracks.ForEach(t =>
+			//{
+			//	Console.WriteLine($"artist:{t.Artist}, album:{t.Album}, year:{t.Year}, trackNumber:{t.TrackNumber}, title:{t.Title}, duration: {TimeSpan.FromSeconds(t.Duration):hh\\:mm\\:ss}");
+			//});
 
 			Console.WriteLine("---");
 			Console.ReadLine();

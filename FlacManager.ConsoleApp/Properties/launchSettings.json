@@ -1,8 +1,7 @@
 {
   "profiles": {
     "FlacManager.ConsoleApp": {
-      "commandName": "Project",
-      "commandLineArgs": "1.9.2020 3.10.2020"
+      "commandName": "Project"
     }
   }
 }

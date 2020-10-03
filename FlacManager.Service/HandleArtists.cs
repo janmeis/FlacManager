@@ -16,7 +16,7 @@ namespace FlacManager.Service
 		//private static readonly Regex _trackRegex = new Regex(@"^(\d+)\s*-\s*(.*)$");
 
 		public HandleArtists(
-			IMusicCatalogService musicCatalogDbService, 
+			IMusicCatalogService musicCatalogDbService,
 			IAudioFileService audioFileService,
 			IOptions<MusicLibraryOptions> options)
 		{
@@ -37,11 +37,8 @@ namespace FlacManager.Service
 
 		public void StoreArtists(DateTime? from, DateTime? to)
 		{
-			var startDate = from ?? DateTime.MinValue;
-			var endDate = to ?? DateTime.MaxValue;
-
 			var artists = new DirectoryInfo(_musicFilesLocation).EnumerateDirectories()
-				.Where(artist => artist.CreationTime >= startDate && artist.CreationTime <= endDate)
+				.Where(artist => artist.CreationTime >= (from ?? DateTime.MinValue) && artist.CreationTime <= (to ?? DateTime.MaxValue))
 				.OrderBy(artist => artist.Name)
 				.Select(artist => new Artist
 				{
@@ -54,16 +51,8 @@ namespace FlacManager.Service
 				}).ToList();
 
 			//_musicCatalogDbService.CreateStatistics();
-			var indexSet = false;
-			artists.ForEach(a =>
-			{
-				_musicCatalogDbService.Insert(a);
-				if (!indexSet)
-				{
-					_musicCatalogDbService.SetIndexes();
-					indexSet = true;
-				}
-			});
+			_musicCatalogDbService.SetIndexes();
+			artists.ForEach(a => _musicCatalogDbService.Insert(a));
 		}
 
 		private IEnumerable<Album> GetAlbums(DirectoryInfo artist)
@@ -79,32 +68,13 @@ namespace FlacManager.Service
 					Tracks = _audioFileService.GetTracks(album),
 					CreationTime = album.CreationTime,
 					LastWriteTime = album.LastWriteTime,
-					Files = GetFiles(album)
-				});
-		}
-
-		private static IEnumerable<Models.Models.File> GetFiles(DirectoryInfo album)
-		{
-			var index = 1;
-			return album.EnumerateFileSystemInfos()
-				.OrderBy(file => file.Name)
-				.Select(file => new Models.Models.File
-				{
-					Id = index++,
-					Name = file.Name,
-					Length = (file.Attributes & FileAttributes.Directory) == 0 ? ((FileInfo) file).Length : 0,
-					Attributes = file.Attributes,
-					FullName = file.FullName,
-					IsReadOnly = (file.Attributes & FileAttributes.Directory) == 0 && ((FileInfo) file).IsReadOnly,
-					CreationTime = file.CreationTime,
-					LastWriteTime = file.LastWriteTime
 				});
 		}
 
 		private static long GetArtistDirSize(DirectoryInfo artist)
 		{
 			return (artist?.EnumerateDirectories().Sum(GetAlbumDirSize) ?? 0)
-			       + (artist?.EnumerateFiles().Sum(f => f.Length) ?? 0);
+				   + (artist?.EnumerateFiles().Sum(f => f.Length) ?? 0);
 		}
 
 		private static long GetAlbumDirSize(DirectoryInfo album)
