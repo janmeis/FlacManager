@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace FlacManager.ConsoleApp
 {
@@ -19,13 +20,15 @@ namespace FlacManager.ConsoleApp
 			// Get Service and call method
 			// ReSharper disable once InconsistentNaming
 			var _handleArtists = serviceProvider.GetService<IHandleArtists>();
+			// ReSharper disable once InconsistentNaming
+			var _logger = serviceProvider.GetService<ILogger<Program>>();
 
 			DateTime? from = null;
 			DateTime? to = null;
 			if (args.Length > 0) from = DateTime.Parse(args[0]);
 			if (args.Length > 1) to = DateTime.Parse(args[1]);
 
-			Console.WriteLine("---");
+			_logger.LogWarning("---");
 
 			_handleArtists.DeleteAll();
 			_handleArtists.StoreArtists(from, to);
@@ -35,11 +38,10 @@ namespace FlacManager.ConsoleApp
 			//	.SelectMany(t => t.Tracks).ToList();
 			//tracks.ForEach(t =>
 			//{
-			//	Console.WriteLine($"artist:{t.Artist}, album:{t.Album}, year:{t.Year}, trackNumber:{t.TrackNumber}, title:{t.Title}, duration: {TimeSpan.FromSeconds(t.Duration):hh\\:mm\\:ss}");
+			//	_logger.LogWarning($"artist:{t.Artist}, album:{t.Album}, year:{t.Year}, trackNumber:{t.TrackNumber}, title:{t.Title}, duration: {TimeSpan.FromSeconds(t.Duration):hh\\:mm\\:ss}");
 			//});
 
-			Console.WriteLine("---");
-			Console.ReadLine();
+			_logger.LogWarning("---");
 		}
 	}
 }
